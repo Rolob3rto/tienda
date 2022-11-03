@@ -3,11 +3,15 @@ package com.rolob3rto.springprojects.tienda.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Cliente;
+
+@Controller
+@RequestMapping("/clientes")
 public class ClienteController {
      
     @RequestMapping(path = "/list")
