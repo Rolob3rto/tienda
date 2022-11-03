@@ -1,25 +1,23 @@
 package com.rolob3rto.springprojects.tienda.model;
 
-import java.util.Date;
-
 public class Cliente {
     private int codigo;
     private String nombre;
     private String apellidos;
+    private String email;
     private String numero;
     private String direccion;
-    private Date fechaNacimiento;
+    private Boolean vip;
     
-    
-
-    public Cliente(int codigo, String nombre, String apellidos, String numero, String direccion,
-            Date fechaNacimiento) {
+    public Cliente(int codigo, String nombre, String apellidos, String email, String numero, String direccion,
+             Boolean vip) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellidos = apellidos;
+        this.email = email;
         this.numero = numero;
         this.direccion = direccion;
-        this.fechaNacimiento = fechaNacimiento;
+        this.vip = vip;
     }
 
     public Cliente() {}
@@ -68,12 +66,20 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getVip() {
+        return vip;
+    }
+
+    public void setVip(Boolean vip) {
+        this.vip = vip;
     }
 
     @Override
