@@ -13,6 +13,14 @@ public class Producto {
 
     }
 
+    
+
+    public Producto(int codigo) {
+        this.codigo = codigo;
+    }
+
+
+
     public Producto(int codigo, String nombre, String descripcion, String urlImg, Date fecha) {
         this.codigo = codigo;
         this.nombre = nombre;
