@@ -7,10 +7,10 @@ public class Cliente {
     private String email;
     private String numero;
     private String direccion;
-    private Boolean vip;
+    private boolean vip;
     
     public Cliente(int codigo, String nombre, String apellidos, String email, String numero, String direccion,
-             Boolean vip) {
+             boolean vip) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -26,11 +26,11 @@ public class Cliente {
         this.codigo = codigo;
     }
 
-    public int getcodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setcodigo(int codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -50,6 +50,14 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getNumero() {
         return numero;
     }
@@ -66,19 +74,11 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Boolean getVip() {
+    public boolean isVip() {
         return vip;
     }
 
-    public void setVip(Boolean vip) {
+    public void setVip(boolean vip) {
         this.vip = vip;
     }
 
@@ -104,7 +104,7 @@ public class Cliente {
         return true;
     }
 
-    
+
 
     
     
