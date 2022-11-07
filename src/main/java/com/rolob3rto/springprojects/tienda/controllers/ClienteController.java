@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,18 +46,6 @@ public class ClienteController {
          return modelAndView;
     }
 
-    @RequestMapping(path = "/create")
-    public ModelAndView create(@RequestParam(name = "codigo", required = true) int codigo ){
-
-        list <Cliente> clientes = getClientes(); 
-
-         ModelAndView modelAndView = new ModelAndView();
-         modelAndView.addObject("clientes", new Cliente());
-         modelAndView.setViewName("clientes/list");
-
-         return modelAndView;
-    }
-
     @PostMapping(path = "/save")
     public ModelAndView save(Cliente cliente){
 
@@ -90,12 +79,15 @@ public class ClienteController {
          return modelAndView;
     }
 
-    @RequestMapping(path = "/delete")
-    public ModelAndView delete(){
+    @RequestMapping(path = "/delete/{codigo}")
+    public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
+
+        List <Cliente> clientes = getClientes();
+        clientes.remove(getCliente(codigo));
 
          ModelAndView modelAndView = new ModelAndView();
-         modelAndView.addObject("cliente", new Cliente());
-         modelAndView.setViewName("clientes/new");
+         modelAndView.addObject("clientes", clientes);
+         modelAndView.setViewName("clientes/list");
 
          return modelAndView;
     }
