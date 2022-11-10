@@ -19,6 +19,7 @@
             </div>
           </div>
         </div> -->
+        <h1 th:text="#{clientes.list.titulo}">Clientes</h1>
         <a class="btn btn-primary" th:href="@{/clientes/create}" href="new.html"
         role="button">
         Crear</a>
@@ -26,13 +27,13 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Codigo</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellidos</th>
-          <th scope="col">Email</th>
-          <th scope="col">Numero</th>
-          <th scope="col">Direccion</th>
-          <th scope="col">Vip</th>
+          <th scope="col" th:text="#{clientes.list.codigo}">Codigo</th>
+          <th scope="col" th:text="#{clientes.list.nombre}">Nombre</th>
+          <th scope="col" th:text="#{clientes.list.apellidos}">Apellidos</th>
+          <th scope="col" th:text="#{clientes.list.email}">Email</th>
+          <th scope="col" th:text="#{clientes.list.numero}">Numero</th>
+          <th scope="col" th:text="#{clientes.list.direccion}">Direccion</th>
+          <th scope="col" th:text="#{clientes.list.vip}">Vip</th>
           <th scope="col">---</th>
         </tr>
       </thead>
@@ -68,6 +69,7 @@
             </tr> -->
       </tbody>
     </table>
+    <h5 th:text="#{clientes.list.pie}"></h5>
   </div>
 
   <div th:replace="commons/footer :: footer" class="container" />
