@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Usuario;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -29,6 +32,14 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("usuario", usuario);
         modelAndView.setViewName("login/login");
+
+        return modelAndView;
+    }
+
+    @GetMapping(value="/logout")
+    public ModelAndView logout() {
+        
+        ModelAndView modelAndView = new ModelAndView("lodin/signin");
 
         return modelAndView;
     }
