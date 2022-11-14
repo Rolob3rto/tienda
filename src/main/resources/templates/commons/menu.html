@@ -47,28 +47,11 @@
             <input class="form-control me-2" th:placeholder="#{menu.buscar}" type="search" placeholder="Search" aria-label="Search">
             <button th:text="#{menu.buscar}" class="btn btn-outline-success" type="submit">Search</button>
           </form>
+
+          <a th:href="@{/login/logout}" th:text="${session.usuario.nombre}" href="#"><i class="bi bi-box-arrow-left"></i>logout</a>
         </div>
       </div>
     </nav>
-
-    <!-- CARD -->
-
-    <div class="container">
-      <div class="row">
-        <div th:each="carta : ${listaProductos}" class="card" style="width: 18rem;">
-          <img th:src="${carta.urlImg}" src="../static/img/coca.jpg" height="300px" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 th:text="${carta.nombre}" class="card-title"></h5>
-            <p th:text="${carta.descripcion}" class="card-text">Some quick example text to build on the card title and
-              make up the bulk of the card's content.</p>
-            <a th:href="@{/saludar/producto?codigo=}+${carta.codigo}" href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 
 </body>
 

@@ -1,5 +1,7 @@
 package com.rolob3rto.springprojects.tienda.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -33,13 +35,15 @@ public class LoginController {
     }
 
     @PostMapping(value="/login")
-    public ModelAndView login(Usuario usuario) {
+    public ModelAndView login(Usuario usuario, HttpSession session) {
 
         String message = messageSource.getMessage("saludar.usuario", new String[] {usuario.getNombre()}, LocaleContextHolder.getLocale());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("greetings", message);
         modelAndView.setViewName("welcome");
+
+        session.setAttribute("usuario", usuario);
 
         return modelAndView;
     }

@@ -7,6 +7,7 @@
         <div class="h-100 p-5 text-bg-dark rounded-3">
             <h1 th:text="${greetings}"></h1>
 
+            <h3 th:text="#{saludar.usuario(${session.usuario.nombre})}">Hello, PlaceHolder</h3>
         </div>
     </div>
 
