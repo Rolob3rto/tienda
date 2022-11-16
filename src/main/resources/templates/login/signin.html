@@ -14,6 +14,14 @@
           </div>          
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
+
+        <div th:if="${session}">
+          <div th:with="condicion = ${session.usuario}">
+              <p th:if="${condicion}" th:text="${session.usuario.nombre}"></p>
+              <p th:unless="${condicion}">sin session</p>
+          </div>
+        </div>
+        <div th:unless="${session}">sin session</div>
       </div>
       
 

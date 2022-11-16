@@ -49,9 +49,12 @@ public class LoginController {
     }
 
     @GetMapping(value="/logout")
-    public ModelAndView logout() {
+    public ModelAndView logout(HttpSession session) {
         
         ModelAndView modelAndView = new ModelAndView("login/signin");
+
+        //session.setAttribute("usuario", null);
+        session.invalidate();
 
         return modelAndView;
     }
