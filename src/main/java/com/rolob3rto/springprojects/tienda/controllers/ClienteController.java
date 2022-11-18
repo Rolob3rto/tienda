@@ -3,6 +3,7 @@ package com.rolob3rto.springprojects.tienda.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,16 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Cliente;
+import com.rolob3rto.springprojects.tienda.services.ClientesServices;
 
 @Controller
 @RequestMapping("/clientes")
 public class ClienteController {
+
+    @Autowired
+    ClientesServices clientesServices;
      
     @RequestMapping(path = "/list")
     public ModelAndView list(){
 
+        List<Cliente> clientes = clientesServices.findAll();
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("clientes", getClientes());
+        modelAndView.addObject("clientes", clientes);
         modelAndView.setViewName("clientes/list");
 
         return modelAndView;
