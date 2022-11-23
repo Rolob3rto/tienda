@@ -37,7 +37,9 @@ public class ClienteController {
     public ModelAndView edit(@RequestParam(name = "codigo", required = true) int codigo ){
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("cliente", getCliente(codigo));
+
+        Cliente cliente = clientesServices.findCliente(codigo);
+        modelAndView.addObject("cliente", clientesServices.findCliente(codigo));
         modelAndView.setViewName("clientes/edit");
 
         return modelAndView;
@@ -56,12 +58,9 @@ public class ClienteController {
     @PostMapping(path = "/save")
     public ModelAndView save(Cliente cliente){
 
-        int round = (int) (Math.random()*(100+5));
-
-        cliente.setCodigo(round);
+        clientesServices.insert(cliente);
         
-        List <Cliente> clientes = getClientes();
-        clientes.add(cliente);
+        List<Cliente> clientes = clientesServices.findAll();
 
          ModelAndView modelAndView = new ModelAndView();
          modelAndView.addObject("clientes", clientes);
@@ -73,11 +72,8 @@ public class ClienteController {
     @PostMapping(path = "/update")
     public ModelAndView update(Cliente cliente){
 
-        List <Cliente> clientes = getClientes();
-
-        int indexOf = clientes.indexOf(cliente);
-
-        clientes.set(indexOf, cliente);
+        clientesServices.update(cliente);
+        List<Cliente> clientes = clientesServices.findAll();
          
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("clientes", clientes);
@@ -89,8 +85,8 @@ public class ClienteController {
     @RequestMapping(path = "/delete/{codigo}")
     public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
 
-        List <Cliente> clientes = getClientes();
-        clientes.remove(getCliente(codigo));
+        List<Cliente> clientes = clientesServices.findAll();
+        clientes.remove(clientesServices.findCliente(codigo));
 
          ModelAndView modelAndView = new ModelAndView();
          modelAndView.addObject("clientes", clientes);
@@ -101,7 +97,7 @@ public class ClienteController {
 
 
     private Cliente getCliente(int codigo) {
-       List <Cliente> clientes = getClientes();
+        List<Cliente> clientes = clientesServices.findAll();
        int indexof = clientes.indexOf(new Cliente(codigo));
 
        return clientes.get(indexof);

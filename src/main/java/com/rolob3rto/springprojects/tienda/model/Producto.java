@@ -12,7 +12,6 @@ public class Producto {
     public Producto() {
 
     }
-
     
 
     public Producto(int codigo) {

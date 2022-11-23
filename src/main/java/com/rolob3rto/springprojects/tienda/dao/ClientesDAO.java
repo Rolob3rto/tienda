@@ -6,4 +6,10 @@ import com.rolob3rto.springprojects.tienda.model.Cliente;
 
 public interface ClientesDAO {
     public List<Cliente> findAll();
+
+    public Cliente findCliente(int codigo);
+
+    public void insert(Cliente cliente);
+
+    public void update(Cliente cliente);
 }

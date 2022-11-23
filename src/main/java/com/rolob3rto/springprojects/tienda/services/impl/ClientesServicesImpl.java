@@ -21,4 +21,20 @@ public class ClientesServicesImpl implements ClientesServices {
         return clientesDAO.findAll();
     }
 
+    @Override
+    public Cliente findCliente(int codigo) {        
+        
+        return clientesDAO.findCliente(codigo);
+    }
+
+    @Override
+    public void insert(Cliente cliente) {
+        clientesDAO.insert(cliente);
+    }
+
+    @Override
+    public void update(Cliente cliente) {
+        clientesDAO.update(cliente);        
+    }
+
 }
