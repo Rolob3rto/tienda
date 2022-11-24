@@ -109,4 +109,21 @@ public class clientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
         int update = getJdbcTemplate().update(query, params, types);
     }
 
+    @Override
+    public void delete(int codigo) {
+        
+        String query = "delete from Clientes where codigo = ?";
+
+        Object[] params = {            
+            codigo
+    };
+
+        int[] types = {           
+            Types.INTEGER
+    };
+
+    int delete = getJdbcTemplate().update(query, params, types);
+        
+    }
+
 }

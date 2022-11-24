@@ -13,4 +13,6 @@ public interface ClientesServices {
     public void insert(Cliente cliente);
 
     public void update(Cliente cliente);
+
+    public void delete(int codigo);
 }

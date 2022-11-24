@@ -37,4 +37,11 @@ public class ClientesServicesImpl implements ClientesServices {
         clientesDAO.update(cliente);        
     }
 
+    @Override
+    public void delete(int codigo) {
+        clientesDAO.delete(codigo);
+    }
+
+    
+
 }

@@ -85,8 +85,9 @@ public class ClienteController {
     @RequestMapping(path = "/delete/{codigo}")
     public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
 
+        clientesServices.delete(codigo);
         List<Cliente> clientes = clientesServices.findAll();
-        clientes.remove(clientesServices.findCliente(codigo));
+        // clientes.remove(clientesServices.findCliente(codigo));
 
          ModelAndView modelAndView = new ModelAndView();
          modelAndView.addObject("clientes", clientes);
