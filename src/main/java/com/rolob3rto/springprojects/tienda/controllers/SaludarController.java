@@ -1,4 +1,4 @@
-package com.rolob3rto.springprojects.tienda.controllers;
+/* package com.rolob3rto.springprojects.tienda.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,3 +83,4 @@ public class SaludarController {
     }
 
 }
+ */
