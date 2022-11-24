@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="commons/header :: header"/>
+
+<head th:replace="commons/header :: header" />
+
 <body>
-    <div th:replace="commons/menu :: menu" />
+  <div th:replace="commons/menu :: menu" />
 
-      <!-- CARD -->
 
-      <div class="container">
-        <div class="row">
-          <div th:each="producto : ${productos}" class="card" style="width: 18rem;">
-            <img th:src="${producto.urlImg}" src="../static/img/coca.jpg" height="300px" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 th:text="${producto.nombre}" class="card-title"></h5>
-              <p th:text="${producto.descripcion}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a th:href="@{/productos/edit?codigo=}+${producto.codigo}" href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-      
-      <div th:replace="commons/footer :: footer" class="container" />
+
+  <div class="container">
+    
+        <h1 th:text="#{productos.list.titulo}">Productos</h1>
+        <a class="btn btn-primary" th:text="#{productos.list.nuevoProducto}" th:href="@{/productos/create}" href="new.html"
+        role="button">
+        Crear</a>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" th:text="#{productos.list.codigo}">Codigo</th>
+          <th scope="col" th:text="#{productos.list.nombre}">Nombre</th>
+          <th scope="col" th:text="#{productos.list.descripcion}">Descripcion</th>
+          <th scope="col" th:text="#{productos.list.precio}">Precio</th>          
+          <th scope="col">---</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="producto : ${productos}">
+          <th scope="row" th:text="${producto.codigo}">#</th>
+          <td th:text="${producto.nombre}">---</td>
+          <td th:text="${producto.descripcion}">---</td>
+          <td th:text="${producto.precio}">---</td>          
+          <td>          
+            <a class="btn btn-primary" th:text="#{productos.list.editar}" th:href="@{/productos/edit?codigo=}+${producto.codigo}" href="edit.html"
+              role="button">
+              Editar</a>
+            <a class="btn btn-primary" th:text="#{productos.list.borrar}" th:href="@{/productos/delete/}+${producto.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>
+          </td>
+        </tr>    
+      </tbody>
+    </table>
+    <h5 th:text="#{productos.list.pie}"></h5>
+  </div>
+
+  <div th:replace="commons/footer :: footer" class="container" />
 </body>
+
 </html>
