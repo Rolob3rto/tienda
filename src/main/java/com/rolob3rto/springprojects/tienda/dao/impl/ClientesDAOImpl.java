@@ -7,18 +7,15 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Jdbc;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.rolob3rto.springprojects.tienda.dao.ClientesDAO;
 import com.rolob3rto.springprojects.tienda.model.Cliente;
 
 @Repository
-public class clientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
+public class ClientesDAOImpl extends JdbcDaoSupport implements ClientesDAO {
 
     @Autowired
     DataSource dataSource;
