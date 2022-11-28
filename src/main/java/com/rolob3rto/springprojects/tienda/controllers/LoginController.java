@@ -34,10 +34,17 @@ public class LoginController {
         return modelAndView;
     }
 
-    @PostMapping(value="/login")
+    //@PostMapping(value="/login")
+    @RequestMapping(value = "/login")
     public ModelAndView login(Usuario usuario, HttpSession session) {
 
+        //esto para no hacer login
+        usuario = new Usuario();
+        usuario.setNombre("Roberto");
+        //
+
         String message = messageSource.getMessage("saludar.usuario", new String[] {usuario.getNombre()}, LocaleContextHolder.getLocale());
+        
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("greetings", message);

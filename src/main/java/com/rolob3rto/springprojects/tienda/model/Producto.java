@@ -5,6 +5,7 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private float precio;
+    private byte[] img;
 
     public Producto() {
 
@@ -44,14 +45,23 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
     public float getPrecio() {
         return precio;
     }
-
+    
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+    
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] fileName) {
+        this.img = fileName;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -74,5 +84,6 @@ public class Producto {
             return false;
         return true;
     }
+
 
 }
