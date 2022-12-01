@@ -1,12 +1,9 @@
 package com.rolob3rto.springprojects.tienda.dao.impl;
 
-import org.springframework.*;
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -22,11 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import com.rolob3rto.springprojects.tienda.dao.ProductosDAO;
@@ -66,7 +61,7 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
     
     Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
     
-    String query = "SELECT * FROM Productos ORDER BY " + order.getProperty() + ""
+    String query = "SELECT * FROM Productos ORDER BY " + order.getProperty() + " "
     + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
     
     final List<Producto> productos = getJdbcTemplate().query(query, new BeanPropertyRowMapper(Producto.class));

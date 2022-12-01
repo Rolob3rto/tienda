@@ -1,7 +1,6 @@
 package com.rolob3rto.springprojects.tienda.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,7 +86,7 @@ public class ProductoController {
         ModelAndView modelAndView = new ModelAndView();
 
         Producto producto = productosService.findProducto(codigo);
-        modelAndView.addObject("producto", productosService.findProducto(codigo));
+        modelAndView.addObject("producto", producto);
         modelAndView.setViewName("productos/edit");
 
         return modelAndView;
@@ -104,7 +102,7 @@ public class ProductoController {
          return modelAndView;
     }
 
-    @PostMapping(path = "/save")
+    @RequestMapping(path = "/save")
     public ModelAndView save(Producto producto, @RequestParam("imagen") MultipartFile multipartFile) throws IOException{
 
 
@@ -120,7 +118,7 @@ public class ProductoController {
          //modelAndView.addObject("productos", productos);
          //modelAndView.setViewName("productos/list");
 
-         modelAndView.setViewName("redirect:edit/" + producto.getCodigo());
+         modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
 
          return modelAndView;
     }
