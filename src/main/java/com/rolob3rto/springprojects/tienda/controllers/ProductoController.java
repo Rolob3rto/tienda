@@ -5,8 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +29,9 @@ import com.rolob3rto.springprojects.tienda.services.ProductosServices;
 public class ProductoController {
 
     @Autowired
-    ProductosServices productosServices;
+    ProductosServices productosService;
      
-    @RequestMapping(path = "/list")
+    /* @RequestMapping(path = "/list")
     public ModelAndView list(){
 
         List<Producto> productos = productosServices.findAll();
@@ -34,6 +41,45 @@ public class ProductoController {
         modelAndView.setViewName("productos/list");
 
         return modelAndView;
+    } */
+
+    @Value("${pagination.size}")
+    int sizePage;
+
+
+    @GetMapping(value = "/list")
+    public ModelAndView list(Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        return modelAndView;
+    }
+  
+    @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
+    public ModelAndView listPage(Model model,
+            @PathVariable("numPage") Integer numPage,
+            @PathVariable("fieldSort") String fieldSort,
+            @PathVariable("directionSort") String directionSort) {
+
+
+        Pageable pageable = PageRequest.of(numPage - 1, sizePage,
+            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+
+        Page<Producto> page = productosService.findAll(pageable);
+
+        List<Producto> productos = page.getContent();
+
+        ModelAndView modelAndView = new ModelAndView("productos/list");
+        modelAndView.addObject("productos", productos);
+
+
+        modelAndView.addObject("numPage", numPage);
+        modelAndView.addObject("totalPages", page.getTotalPages());
+        modelAndView.addObject("totalElements", page.getTotalElements());
+
+        modelAndView.addObject("fieldSort", fieldSort);
+        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+
+        return modelAndView;
     }
     
     @RequestMapping(path = "/edit")
@@ -41,8 +87,8 @@ public class ProductoController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        Producto producto = productosServices.findProducto(codigo);
-        modelAndView.addObject("producto", productosServices.findProducto(codigo));
+        Producto producto = productosService.findProducto(codigo);
+        modelAndView.addObject("producto", productosService.findProducto(codigo));
         modelAndView.setViewName("productos/edit");
 
         return modelAndView;
@@ -66,7 +112,7 @@ public class ProductoController {
         producto.setImg(file);
 
 
-        productosServices.insert(producto);
+        productosService.insert(producto);
         
         //List<Producto> productos = productosServices.findAll();
 
@@ -85,7 +131,7 @@ public class ProductoController {
         byte[] file = multipartFile.getBytes();
         producto.setImg(file);
         
-        productosServices.update(producto);
+        productosService.update(producto);
         //List<Producto> productos = productosServices.findAll();
          
         ModelAndView modelAndView = new ModelAndView();
@@ -99,13 +145,13 @@ public class ProductoController {
     @RequestMapping(path = "/delete/{codigo}")
     public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
 
-        productosServices.delete(codigo);
-        List<Producto> productos = productosServices.findAll();
+        productosService.delete(codigo);
+        //List<Producto> productos = productosService.findAll();
         // productos.remove(productosServices.findProducto(codigo));
 
          ModelAndView modelAndView = new ModelAndView();
-         modelAndView.addObject("productos", productos);
-         modelAndView.setViewName("productos/list");
+         //modelAndView.addObject("productos", productos);
+         modelAndView.setViewName("redirect:/productos/list");
 
          return modelAndView;
     }

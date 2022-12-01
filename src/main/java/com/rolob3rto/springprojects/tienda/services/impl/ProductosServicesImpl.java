@@ -4,6 +4,8 @@ import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.rolob3rto.springprojects.tienda.dao.ProductosDAO;
@@ -17,9 +19,9 @@ public class ProductosServicesImpl implements ProductosServices {
     ProductosDAO productosDAO;
 
     @Override
-    public List<Producto> findAll() {        
+    public Page<Producto> findAll(Pageable page) {        
         
-        return productosDAO.findAll();
+        return productosDAO.findAll(page);
     }
 
     @Override
