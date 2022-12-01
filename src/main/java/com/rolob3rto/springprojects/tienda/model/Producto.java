@@ -1,5 +1,7 @@
 package com.rolob3rto.springprojects.tienda.model;
 
+import com.rolob3rto.springprojects.tienda.utils.ImageUtil;
+
 public class Producto {
     private int codigo;
     private String nombre;
@@ -60,6 +62,10 @@ public class Producto {
 
     public void setImg(byte[] fileName) {
         this.img = fileName;
+    }
+
+    public String getImageView(){
+        return ImageUtil.getImgData(this.img);
     }
     
 

@@ -15,22 +15,24 @@
         role="button">
         Crear</a>
 
-    <table class="table table-striped">
+    <table class="table table-striped align-middle text-center">
       <thead>
         <tr>
+          <th scope="col" th:text="#{productos.list.imagen}">Imagen</th>  
           <th scope="col" th:text="#{productos.list.codigo}">Codigo</th>
           <th scope="col" th:text="#{productos.list.nombre}">Nombre</th>
           <th scope="col" th:text="#{productos.list.descripcion}">Descripcion</th>
-          <th scope="col" th:text="#{productos.list.precio}">Precio</th>          
+          <th scope="col" th:text="#{productos.list.precio}">Precio</th>  
           <th scope="col">---</th>
         </tr>
       </thead>
       <tbody>
         <tr th:each="producto : ${productos}">
+          <td> <img th:src="'data:image/jpeg;base64,' + ${producto.imageView}" width="325em" src="" alt=""> </td>
           <th scope="row" th:text="${producto.codigo}">#</th>
           <td th:text="${producto.nombre}">---</td>
           <td th:text="${producto.descripcion}">---</td>
-          <td th:text="${producto.precio}+€">---</td>          
+          <td th:text="${producto.precio}+€">---</td>  
           <td>          
             <a class="btn btn-primary" th:text="#{productos.list.editar}" th:href="@{/productos/edit?codigo=}+${producto.codigo}" href="edit.html"
               role="button">

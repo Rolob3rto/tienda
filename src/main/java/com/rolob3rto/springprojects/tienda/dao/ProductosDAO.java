@@ -14,4 +14,6 @@ public interface ProductosDAO {
     public void update(Producto producto);
 
     public void delete(int codigo);
+
+    public void updateImg(Producto producto);
 }

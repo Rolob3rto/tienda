@@ -68,24 +68,30 @@ public class ProductoController {
 
         productosServices.insert(producto);
         
-        List<Producto> productos = productosServices.findAll();
+        //List<Producto> productos = productosServices.findAll();
 
          ModelAndView modelAndView = new ModelAndView();
-         modelAndView.addObject("productos", productos);
-         modelAndView.setViewName("productos/list");
+         //modelAndView.addObject("productos", productos);
+         //modelAndView.setViewName("productos/list");
+
+         modelAndView.setViewName("redirect:edit/" + producto.getCodigo());
 
          return modelAndView;
     }
 
     @PostMapping(path = "/update")
-    public ModelAndView update(Producto producto){
+    public ModelAndView update(Producto producto, @RequestParam("imagen") MultipartFile multipartFile) throws IOException{
 
+        byte[] file = multipartFile.getBytes();
+        producto.setImg(file);
+        
         productosServices.update(producto);
-        List<Producto> productos = productosServices.findAll();
+        //List<Producto> productos = productosServices.findAll();
          
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("productos", productos);
-        modelAndView.setViewName("productos/list");
+        //modelAndView.addObject("productos", productos);
+        //modelAndView.setViewName("productos/list");
+        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
 
          return modelAndView;
     }

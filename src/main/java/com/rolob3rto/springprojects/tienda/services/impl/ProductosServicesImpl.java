@@ -1,5 +1,6 @@
 package com.rolob3rto.springprojects.tienda.services.impl;
 
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +35,17 @@ public class ProductosServicesImpl implements ProductosServices {
 
     @Override
     public void update(Producto producto) {
-        productosDAO.update(producto);        
+        productosDAO.update(producto);
+
+        if (producto.getImg() != null && producto.getImg().length > 0) {
+            productosDAO.updateImg(producto);
+        } 
     }
 
     @Override
     public void delete(int codigo) {
         productosDAO.delete(codigo);
     }
-
     
 
 }
