@@ -42,9 +42,8 @@ public class LoginController {
         usuario = new Usuario();
         usuario.setNombre("Roberto");
         //
-
-        String message = messageSource.getMessage("saludar.usuario", new String[] {usuario.getNombre()}, LocaleContextHolder.getLocale());
         
+        String message = messageSource.getMessage("saludar.usuario", new String[] {usuario.getNombre()}, LocaleContextHolder.getLocale());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("greetings", message);

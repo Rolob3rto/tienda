@@ -1,8 +1,11 @@
 package com.rolob3rto.springprojects.tienda.services.impl;
 
+import java.sql.Types;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.rolob3rto.springprojects.tienda.dao.ClientesDAO;
@@ -16,9 +19,9 @@ public class ClientesServicesImpl implements ClientesServices {
     ClientesDAO clientesDAO;
 
     @Override
-    public List<Cliente> findAll() {        
+    public Page<Cliente> findAll(Pageable page) {        
         
-        return clientesDAO.findAll();
+        return clientesDAO.findAll(page);
     }
 
     @Override
@@ -34,14 +37,12 @@ public class ClientesServicesImpl implements ClientesServices {
 
     @Override
     public void update(Cliente cliente) {
-        clientesDAO.update(cliente);        
+        clientesDAO.update(cliente);
     }
 
     @Override
     public void delete(int codigo) {
         clientesDAO.delete(codigo);
     }
-
-    
 
 }
