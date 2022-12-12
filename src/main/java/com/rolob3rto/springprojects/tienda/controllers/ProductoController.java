@@ -3,6 +3,8 @@ package com.rolob3rto.springprojects.tienda.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rolob3rto.springprojects.tienda.model.DetallePedido;
+import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.model.Producto;
 import com.rolob3rto.springprojects.tienda.services.ProductosServices;
 
@@ -28,39 +32,39 @@ public class ProductoController {
 
     @Autowired
     ProductosServices productosService;
-     
-    /* @RequestMapping(path = "/list")
-    public ModelAndView list(){
 
-        List<Producto> productos = productosServices.findAll();
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("productos", productos);
-        modelAndView.setViewName("productos/list");
-
-        return modelAndView;
-    } */
+    /*
+     * @RequestMapping(path = "/list")
+     * public ModelAndView list(){
+     * 
+     * List<Producto> productos = productosServices.findAll();
+     * 
+     * ModelAndView modelAndView = new ModelAndView();
+     * modelAndView.addObject("productos", productos);
+     * modelAndView.setViewName("productos/list");
+     * 
+     * return modelAndView;
+     * }
+     */
 
     @Value("${pagination.size}")
     int sizePage;
 
-
     @GetMapping(value = "/list")
-    public ModelAndView list(Model model){
+    public ModelAndView list(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:list/1/codigo/asc");
         return modelAndView;
     }
-  
+
     @GetMapping(value = "/list/{numPage}/{fieldSort}/{directionSort}")
     public ModelAndView listPage(Model model,
             @PathVariable("numPage") Integer numPage,
             @PathVariable("fieldSort") String fieldSort,
             @PathVariable("directionSort") String directionSort) {
 
-
         Pageable pageable = PageRequest.of(numPage - 1, sizePage,
-            directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
+                directionSort.equals("asc") ? Sort.by(fieldSort).ascending() : Sort.by(fieldSort).descending());
 
         Page<Producto> page = productosService.findAll(pageable);
 
@@ -68,7 +72,6 @@ public class ProductoController {
 
         ModelAndView modelAndView = new ModelAndView("productos/list");
         modelAndView.addObject("productos", productos);
-
 
         modelAndView.addObject("numPage", numPage);
         modelAndView.addObject("totalPages", page.getTotalPages());
@@ -79,9 +82,9 @@ public class ProductoController {
 
         return modelAndView;
     }
-    
+
     @RequestMapping(path = "/edit")
-    public ModelAndView edit(@RequestParam(name = "codigo", required = true) int codigo ){
+    public ModelAndView edit(@RequestParam(name = "codigo", required = true) int codigo) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -93,65 +96,96 @@ public class ProductoController {
     }
 
     @RequestMapping(path = "/create")
-    public ModelAndView create(){
+    public ModelAndView create() {
 
-         ModelAndView modelAndView = new ModelAndView();
-         modelAndView.addObject("producto", new Producto());
-         modelAndView.setViewName("productos/new");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("producto", new Producto());
+        modelAndView.setViewName("productos/new");
 
-         return modelAndView;
+        return modelAndView;
     }
 
     @RequestMapping(path = "/save")
-    public ModelAndView save(Producto producto, @RequestParam("imagen") MultipartFile multipartFile) throws IOException{
-
+    public ModelAndView save(Producto producto, @RequestParam("imagen") MultipartFile multipartFile)
+            throws IOException {
 
         byte[] file = multipartFile.getBytes();
         producto.setImg(file);
 
-
         productosService.insert(producto);
-        
-        //List<Producto> productos = productosServices.findAll();
 
-         ModelAndView modelAndView = new ModelAndView();
-         //modelAndView.addObject("productos", productos);
-         //modelAndView.setViewName("productos/list");
+        // List<Producto> productos = productosServices.findAll();
 
-         modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
+        ModelAndView modelAndView = new ModelAndView();
+        // modelAndView.addObject("productos", productos);
+        // modelAndView.setViewName("productos/list");
 
-         return modelAndView;
+        modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
+
+        return modelAndView;
     }
 
     @PostMapping(path = "/update")
-    public ModelAndView update(Producto producto, @RequestParam("imagen") MultipartFile multipartFile) throws IOException{
+    public ModelAndView update(Producto producto, @RequestParam("imagen") MultipartFile multipartFile)
+            throws IOException {
 
         byte[] file = multipartFile.getBytes();
         producto.setImg(file);
-        
+
         productosService.update(producto);
-        //List<Producto> productos = productosServices.findAll();
-         
+        // List<Producto> productos = productosServices.findAll();
+
         ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.addObject("productos", productos);
-        //modelAndView.setViewName("productos/list");
+        // modelAndView.addObject("productos", productos);
+        // modelAndView.setViewName("productos/list");
         modelAndView.setViewName("redirect:edit?codigo=" + producto.getCodigo());
 
-         return modelAndView;
+        return modelAndView;
     }
 
     @RequestMapping(path = "/delete/{codigo}")
-    public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
+    public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo) {
 
         productosService.delete(codigo);
-        //List<Producto> productos = productosService.findAll();
+        // List<Producto> productos = productosService.findAll();
         // productos.remove(productosServices.findProducto(codigo));
 
-         ModelAndView modelAndView = new ModelAndView();
-         //modelAndView.addObject("productos", productos);
-         modelAndView.setViewName("redirect:/productos/list");
+        ModelAndView modelAndView = new ModelAndView();
+        // modelAndView.addObject("productos", productos);
+        modelAndView.setViewName("redirect:/productos/list");
 
-         return modelAndView;
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/cantidad")
+    public ModelAndView cantidad(@RequestParam(name = "codigo", required = true) int codigo) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        Producto producto = productosService.findProducto(codigo);
+        modelAndView.addObject("producto", producto);
+        modelAndView.setViewName("productos/cantidad");
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/anadir")
+    public ModelAndView anadir(DetallePedido detallePedido, HttpSession session) {
+
+        Pedido cesta = (Pedido) session.getAttribute("cesta");
+
+        List<DetallePedido> listaPedidos = cesta.getDetallePedidos();
+
+        listaPedidos.add(detallePedido);
+        cesta.setDetallePedidos(listaPedidos);
+        
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/productos/list");
+
+        session.setAttribute("cesta", cesta);
+
+        return modelAndView;
     }
 
 }

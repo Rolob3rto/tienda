@@ -26,6 +26,10 @@ public class Pedido {
     public Pedido() {
     }
 
+    public Pedido(Cliente cliente){
+        this.cliente = cliente;
+    }
+
     public int getCodigo() {
         return codigo;
     }

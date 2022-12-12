@@ -38,6 +38,9 @@
               role="button">
               Editar</a>
             <a class="btn btn-primary" th:text="#{productos.list.borrar}" th:href="@{/productos/delete/}+${producto.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>
+            <a class="btn btn-primary" th:href="@{/productos/cantidad?codigo=}+${producto.codigo}" href="cantidad.html"
+            role="button">
+            Añadir a cesta</a>
           </td>
         </tr>    
       </tbody>

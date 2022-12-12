@@ -30,13 +30,9 @@
                 href="../vendedores/list.html">Vendedores</a>
             </li>  -->           
           </ul>
-          <div th:if="${session}">
-            <div th:with="condicion = ${session.pedido}">
               <!-- <a th:if="${condicion}" th:href="@{/login/logout}" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a> -->
-              <a th:if="${condicion}" th:href="@{/pedido/list}" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a>
-                <div th:unless="${condicion}"></div>              
-            </div>
-          </div>
+              <a th:href="@{/pedido/list}" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a>
+                
           <div th:unless="${session}"></div>
           
           <ul class="navbar-nav">

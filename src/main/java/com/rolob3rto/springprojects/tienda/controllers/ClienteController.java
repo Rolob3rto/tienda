@@ -3,6 +3,8 @@ package com.rolob3rto.springprojects.tienda.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Cliente;
+import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.services.ClientesServices;
 
 @Controller
@@ -139,5 +142,19 @@ public class ClienteController {
 
          return modelAndView;
     }
+
+    @GetMapping(value="/comprador/{codigo}")
+    public ModelAndView comprador(@PathVariable(name = "codigo", required = true) int codigo, HttpSession session) {
+        
+        Cliente cliente = clientesService.findCliente(codigo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        session.setAttribute("cesta", new Pedido(cliente));
+
+        modelAndView.setViewName("redirect:/productos/list");
+
+        return modelAndView;
+    }
+
 
 }

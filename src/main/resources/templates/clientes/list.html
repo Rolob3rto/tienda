@@ -6,19 +6,7 @@
 <body>
   <div th:replace="commons/menu :: menu" />
 
-  <!-- CARD -->
-
   <div class="container">
-    <!-- <div class="row">
-          <div th:each="cliente : ${clientes}" class="card" style="width: 18rem;">
-            <img th:src="${cliente.urlImg}" src="../static/img/coca.jpg" height="300px" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 th:text="${cliente.nombre}" class="card-title"></h5>
-              <p th:text="${cliente.descripcion}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a th:href="@{/clientes/edit?codigo=}+${cliente.codigo}" href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div> -->
         <h1 th:text="#{clientes.list.titulo}">Clientes</h1>
         <a class="btn btn-primary" th:text="#{clientes.list.nuevoCliente}" th:href="@{/clientes/create}" href="new.html"
         role="button">
@@ -51,14 +39,9 @@
               role="button">
               Editar</a>
             <a class="btn btn-primary" th:text="#{clientes.list.borrar}" th:href="@{/clientes/delete/}+${cliente.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>
+            <a class="btn btn-primary" th:href="@{/clientes/comprador/}+${cliente.codigo}" href="#" role="button"><i class="bi bi-person-plus-fill"></i>Elegir cliente</a>
           </td>
         </tr>
-        <!-- <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr> -->
       </tbody>
     </table>
     <div th:replace="commons/pagination :: pagination" class="container" />

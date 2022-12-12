@@ -8,12 +8,15 @@ public class DetallePedido {
 
     private int cantidad;
 
+    private float subTotal;
+
     
 
-    public DetallePedido(int codigo, Producto producto, int cantidad) {
+    public DetallePedido(int codigo, Producto producto, int cantidad, float subTotal) {
         this.codigo = codigo;
         this.producto = producto;
         this.cantidad = cantidad;
+        this.subTotal = subTotal;
     }
 
     public DetallePedido() {
@@ -42,6 +45,16 @@ public class DetallePedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+        public float getSubTotal() {
+            return subTotal;
+        }
+    
+        public void setSubTotal(float subTotal) {
+            this.subTotal = subTotal;
+        }
+
+    
 
     @Override
     public int hashCode() {
