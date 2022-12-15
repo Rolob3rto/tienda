@@ -30,6 +30,10 @@ public class Pedido {
         this.cliente = cliente;
     }
 
+    public Pedido(List<DetallePedido> detallePedidos) {
+        this.detallePedidos = detallePedidos;
+    }
+
     public int getCodigo() {
         return codigo;
     }

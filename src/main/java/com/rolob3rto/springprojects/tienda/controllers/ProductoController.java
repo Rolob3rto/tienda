@@ -170,11 +170,16 @@ public class ProductoController {
     }
 
     @RequestMapping(value = "/anadir")
-    public ModelAndView anadir(DetallePedido detallePedido, HttpSession session) {
+    public ModelAndView anadir(@RequestParam(name = "codigo", required = true) int codigo, HttpSession session) {
 
         Pedido cesta = (Pedido) session.getAttribute("cesta");
 
         List<DetallePedido> listaPedidos = cesta.getDetallePedidos();
+
+        Producto producto = productosService.findProducto(codigo);
+
+        //como añado cantidad y subtotal aqui? y el codigo?
+        DetallePedido detallePedido = new DetallePedido(producto);
 
         listaPedidos.add(detallePedido);
         cesta.setDetallePedidos(listaPedidos);

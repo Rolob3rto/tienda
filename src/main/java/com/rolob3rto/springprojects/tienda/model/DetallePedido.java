@@ -22,6 +22,10 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
+    public DetallePedido(Producto producto) {
+        this.producto = producto;
+    }
+
     public int getCodigo() {
         return codigo;
     }
