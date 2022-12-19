@@ -1,6 +1,7 @@
 package com.rolob3rto.springprojects.tienda.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Cliente;
+import com.rolob3rto.springprojects.tienda.model.DetallePedido;
 import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.services.ClientesServices;
 
@@ -148,7 +150,10 @@ public class ClienteController {
         Cliente cliente = clientesService.findCliente(codigo);
 
         ModelAndView modelAndView = new ModelAndView();
-        session.setAttribute("cesta", new Pedido(cliente));
+
+        List<DetallePedido> listaVacia = new ArrayList<DetallePedido>();
+
+        session.setAttribute("cesta", new Pedido(listaVacia, cliente ));
 
         modelAndView.setViewName("redirect:/productos/list");
 

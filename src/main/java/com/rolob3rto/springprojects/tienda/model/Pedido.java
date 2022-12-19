@@ -34,6 +34,11 @@ public class Pedido {
         this.detallePedidos = detallePedidos;
     }
 
+    public Pedido(List<DetallePedido> detallePedidos, Cliente cliente) {
+        this.detallePedidos = detallePedidos;
+        this.cliente = cliente;
+    }
+
     public int getCodigo() {
         return codigo;
     }

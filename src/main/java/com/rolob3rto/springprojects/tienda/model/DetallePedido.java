@@ -22,8 +22,11 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
-    public DetallePedido(Producto producto) {
+    public DetallePedido(Producto producto, int cantidad, float subTotal) {
         this.producto = producto;
+        this.cantidad = cantidad;
+        this.subTotal = subTotal;
+
     }
 
     public int getCodigo() {
