@@ -8,11 +8,11 @@ public class DetallePedido {
 
     private int cantidad;
 
-    private float subTotal;
+    private double subTotal;
 
     
 
-    public DetallePedido(int codigo, Producto producto, int cantidad, float subTotal) {
+    public DetallePedido(int codigo, Producto producto, int cantidad, double subTotal) {
         this.codigo = codigo;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -22,7 +22,7 @@ public class DetallePedido {
     public DetallePedido() {
     }
 
-    public DetallePedido(Producto producto, int cantidad, float subTotal) {
+    public DetallePedido(Producto producto, int cantidad, double subTotal) {
         this.producto = producto;
         this.cantidad = cantidad;
         this.subTotal = subTotal;
@@ -53,11 +53,11 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
     
-        public float getSubTotal() {
+        public double getSubTotal() {
             return subTotal;
         }
     
-        public void setSubTotal(float subTotal) {
+        public void setSubTotal(double subTotal) {
             this.subTotal = subTotal;
         }
 

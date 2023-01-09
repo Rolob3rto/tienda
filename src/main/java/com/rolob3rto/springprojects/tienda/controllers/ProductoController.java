@@ -178,7 +178,7 @@ public class ProductoController {
 
         Producto producto = productosService.findProducto(codigo);
 
-        float subtotal = producto.getPrecio() * cantidad;
+        double subtotal = producto.getPrecio() * cantidad;
 
         DetallePedido detallePedido = new DetallePedido(producto, cantidad, subtotal);
 
