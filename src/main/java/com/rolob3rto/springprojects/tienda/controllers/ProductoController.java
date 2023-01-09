@@ -174,7 +174,7 @@ public class ProductoController {
 
         Pedido cesta = (Pedido) session.getAttribute("cesta");
 
-        List<DetallePedido> listaPedidos = cesta.getDetallePedidos();
+        List<DetallePedido> listaProductos = cesta.getDetallePedidos();
 
         Producto producto = productosService.findProducto(codigo);
 
@@ -182,8 +182,8 @@ public class ProductoController {
 
         DetallePedido detallePedido = new DetallePedido(producto, cantidad, subtotal);
 
-        listaPedidos.add(detallePedido);
-        cesta.setDetallePedidos(listaPedidos);
+        listaProductos.add(detallePedido);
+        cesta.setDetallePedidos(listaProductos);
         
 
         ModelAndView modelAndView = new ModelAndView();

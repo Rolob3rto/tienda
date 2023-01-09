@@ -76,8 +76,6 @@ public class PedidoController {
 
 
         pedidosService.insert(pedido);
-        
-        
 
          ModelAndView modelAndView = new ModelAndView();
 
@@ -99,5 +97,4 @@ public class PedidoController {
          return modelAndView;
     }
 
-}
- */
+} */

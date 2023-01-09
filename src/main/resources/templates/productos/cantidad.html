@@ -15,12 +15,12 @@
               
             </div>
             <div class="mb-3">
-              <label class="form-label">Descripcion</label>              
+              <label class="form-label">Descripcion:</label>              
               <label th:text="${producto.descripcion}" class="form-label">Descripcion</label>              
             </div>
             <div class="mb-3">
               <label class="form-label">Precio:</label>                    
-              <label th:text="${producto.precio}" class="form-label">Precio</label>                    
+              <label th:text="${producto.precio}+€" class="form-label">Precio</label>                    
             </div>
             <label for="cantidadid"> cantidad:</label>
             <input type="number" name="cantidad" id="cantidadid">
