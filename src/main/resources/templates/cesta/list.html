@@ -38,7 +38,7 @@
           <td th:text="${detalleProducto.cantidad}">---</td>
           <td th:text="${detalleProducto.subTotal}">---</td>          
           <td>           
-            <a class="btn btn-primary" th:href="@{/cesta/delete/}+${detalleProducto.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>          
+            <a class="btn btn-primary" th:href="@{/cesta/delete/}+${detalleProducto.producto.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>          
           </td>
         </tr>
       </tbody>
