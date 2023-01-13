@@ -1,12 +1,14 @@
-/* package com.rolob3rto.springprojects.tienda.dao.impl;
+package com.rolob3rto.springprojects.tienda.dao.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,96 +19,98 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import com.rolob3rto.springprojects.tienda.dao.PedidosDAO;
 import com.rolob3rto.springprojects.tienda.dao.ProductosDAO;
+import com.rolob3rto.springprojects.tienda.model.Cliente;
+import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.model.Producto;
 
 @Repository
-public class PedidosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
+public class PedidosDAOImpl extends JdbcDaoSupport implements PedidosDAO{
+
 
     @Autowired
     DataSource dataSource;
-
+    
     @PostConstruct
-    private void initialize() {
-        setDataSource(dataSource);
-        // si no me va el aplication probar aqui
+	private void initialize(){
+		setDataSource(dataSource);
+	}
+
+    @Override
+    public Page<Pedido> findAll(Pageable page) {
+
+    
+        String queryCount = "select count(1) from Pedidos";
+        Integer total = getJdbcTemplate().queryForObject(queryCount,Integer.class);
+
+
+        Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
+
+        String query = "SELECT p.*, c.nombre FROM Pedidos p, Clientes c where p.codigo_cliente = c.codigo ORDER BY " + order.getProperty() + " "
+        + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
+
+        final List<Pedido> pedidos = getJdbcTemplate().query(query, new RowMapper<Pedido>() {
+
+            @Override
+            @Nullable
+            public Pedido mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Pedido pedido = new Pedido();
+                pedido.setCodigo(rs.getInt("codigo"));
+                pedido.setCliente(new Cliente(rs.getInt("codigo_cliente")));
+                pedido.getCliente().setNombre(rs.getString("nombre"));
+                pedido.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
+                pedido.setTotal(rs.getDouble("total"));
+                return pedido;
+            }
+        });
+
+        return new PageImpl<Pedido>(pedidos, page, total);
+
     }
 
     @Override
-    public Page<Producto> findAll(Pageable page) {
-    
-    String queryCount = "select count(1) from Productos";
-    Integer total = getJdbcTemplate().queryForObject(queryCount,Integer.class);
-    
-    
-    Order order = !page.getSort().isEmpty() ? page.getSort().toList().get(0) : Order.by("codigo");
-    
-    String query = "SELECT * FROM Productos ORDER BY " + order.getProperty() + " "
-    + order.getDirection().name() + " LIMIT " + page.getPageSize() + " OFFSET " + page.getOffset();
-    
-    final List<Producto> productos = getJdbcTemplate().query(query, new BeanPropertyRowMapper(Producto.class));
-    
-    
-    return new PageImpl<Producto>(productos, page, total);
-    
-    }
+    public Pedido findPedido(int codigo) {
+        
+        String query = "select p.*, c.nombre from Pedidos p where p.codigo = ?";
 
-    @Override
-    public Producto findProducto(int codigo) {
+        Object params [] = {codigo};
+        int types [] = {Types.INTEGER};
 
-        String query = "select * from Productos where codigo = ?";
-        Object params[] = { codigo };
-        int types[] = { Types.INTEGER };
+        Pedido producto = (Pedido) getJdbcTemplate().queryForObject(query, params, types, new RowMapper<Pedido>() {
 
-        // Producto producto = getJdbcTemplate().query( query, new
-        // BeanPropertyRowMapper(Producto.class));
-        Producto producto = (Producto) getJdbcTemplate().queryForObject(query, params, types,
-                new BeanPropertyRowMapper(Producto.class));
-
+            @Override
+            @Nullable
+            public Pedido mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Pedido pedido = new Pedido();
+                pedido.setCodigo(rs.getInt("codigo"));
+                pedido.setCliente(new Cliente(rs.getInt("codigo_cliente")));
+                // pedido.getCliente().setNombre(rs.getString("nombre"));
+                pedido.setFecha(new java.util.Date(rs.getDate("fecha").getTime()));
+                pedido.setTotal(rs.getDouble("total"));
+                return pedido;
+            }
+            
+        });
         return producto;
     }
 
-    /*
-     * @Override
-     * public void insert(Producto producto) {
-     * String query = "insert into Productos (nombre, descripcion, precio, img)" +
-     * "values (?,?,?,?)";
-     * 
-     * Object[] params = {
-     * producto.getNombre(),
-     * producto.getDescripcion(),
-     * producto.getPrecio(),
-     * producto.getImg()
-     * };
-     * 
-     * int[] types = {
-     * Types.VARCHAR,
-     * Types.VARCHAR,
-     * Types.FLOAT,
-     * Types.BLOB
-     * };
-     * 
-     * int update = getJdbcTemplate().update(query, params, types);
-     * 
-     * }
-     
-
     @Override
-    public void insert(Producto producto) {
+    public void insert(Pedido pedido) {
 
-        String query = "insert into Productos (nombre," +
-                " descripcion," +
-                " precio," +
-                " img)" +
-                " values (?, ?, ?, ?)";
-
+        String query = "insert into Pedidos (codigo_cliente," + 
+                                            " total," + 
+                                            " fecha)" + 
+                                            " values (?, ?, ?)";
+        
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         getJdbcTemplate().update(new PreparedStatementCreator() {
@@ -115,76 +119,38 @@ public class PedidosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement ps = getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-                ps.setString(1, producto.getNombre());
-                ps.setString(2, producto.getDescripcion());
-                ps.setFloat(3, producto.getPrecio());
-                InputStream is = new ByteArrayInputStream(producto.getImg());
-
-                ps.setBlob(4, is);
+                ps.setInt(1, pedido.getCliente().getCodigo());
+                ps.setDouble(2, pedido.getTotal());
+                java.util.Date fecha = new Date();
+                ps.setDate(3, new java.sql.Date(fecha.getTime()));
                 return ps;
             }
         }, keyHolder);
 
-        producto.setCodigo(keyHolder.getKey().intValue());
+        pedido.setCodigo(keyHolder.getKey().intValue());
     }
 
-    @Override
-    public void update(Producto producto) {
 
-        String query = "update Productos set nombre = ?, descripcion = ?, precio = ? where codigo = ?";
-
-        Object[] params = {
-                producto.getNombre(),
-                producto.getDescripcion(),
-                producto.getPrecio(),
-                producto.getCodigo()
-
-        };
-
-        int[] types = {
-                Types.VARCHAR,
-                Types.VARCHAR,
-                Types.FLOAT,
-                Types.INTEGER
-        };
-
-        int update = getJdbcTemplate().update(query, params, types);
-    }
 
     @Override
     public void delete(int codigo) {
-
-        String query = "delete from Productos where codigo = ?";
+        
+        String query = "delete from Pedidos where codigo = ?";
 
         Object[] params = {
-                codigo
+            codigo
         };
 
-        int[] types = {
-                Types.INTEGER
+        final int[] types = {
+            Types.INTEGER
         };
-
-        int delete = getJdbcTemplate().update(query, params, types);
-
+        getJdbcTemplate().update(query, params, types);
+        
     }
 
     @Override
-    public void updateImg(Producto producto) {
-
-        String query = "update Productos set img = ? where codigo = ?";
-
-        Object[] params = {
-                producto.getImg(),
-                producto.getCodigo()
-        };
-
-        int[] types = {
-                Types.BLOB,
-                Types.INTEGER
-        };
-
-        int update = getJdbcTemplate().update(query, params, types);
+    public void update(Pedido pedido) {
+        // TODO Auto-generated method stub
+        
     }
-
 }
- */

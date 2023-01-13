@@ -1,4 +1,4 @@
-/* package com.rolob3rto.springprojects.tienda.services;
+package com.rolob3rto.springprojects.tienda.services;
 
 import java.util.List;
 
@@ -18,4 +18,4 @@ public interface PedidosServices {
     public void update(Pedido pedido);
 
     public void delete(int codigo);
-} */
+}

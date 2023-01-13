@@ -1,6 +1,7 @@
 package com.rolob3rto.springprojects.tienda.model;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.List;
 
 public class Pedido {
@@ -13,9 +14,9 @@ public class Pedido {
 
     private Date fecha;
 
-    private float total;
+    private double total;
     
-    public Pedido(int codigo, Cliente cliente, List<DetallePedido> detallePedidos, Date fecha, float total) {
+    public Pedido(int codigo, Cliente cliente, List<DetallePedido> detallePedidos, Date fecha, double total) {
         this.codigo = codigo;
         this.cliente = cliente;
         this.detallePedidos = detallePedidos;
@@ -37,6 +38,16 @@ public class Pedido {
     public Pedido(List<DetallePedido> detallePedidos, Cliente cliente) {
         this.detallePedidos = detallePedidos;
         this.cliente = cliente;
+    }
+
+    private double calcularTotal() {
+        
+        double total = 0;
+        for (DetallePedido detallePedido : detallePedidos) {
+            
+            total += detallePedido.getSubTotal();
+        }
+        return total;
     }
 
     public int getCodigo() {
@@ -67,15 +78,15 @@ public class Pedido {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(Date date) {
+        this.fecha = date;
     }
 
-    public float getTotal() {
-        return total;
+    public double getTotal() {
+        return calcularTotal();
     }
 
-    public void setTotal(float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 

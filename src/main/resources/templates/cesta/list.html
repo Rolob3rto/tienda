@@ -41,10 +41,14 @@
             <a class="btn btn-primary" th:href="@{/cesta/delete/}+${detalleProducto.producto.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>          
           </td>
         </tr>
+        <tr>
+          <td colspan="4" style="text-align: right;"><h4>Total:</h4> </td>
+          <td><h4 th:text="${session.cesta.total}"></h4></td>
+        </tr>
       </tbody>
     </table>
     <h5 >Listado de la cesta</h5>
-    <a class="btn btn-primary" th:href="@{/productos/list/}" href="#" role="button">Tramitar Pedido</a>              
+    <a class="btn btn-primary" th:href="@{/pedidos/save/}" href="#" role="button">Tramitar Pedido</a>              
   </div>
 
   <div th:replace="commons/footer :: footer" class="container" />

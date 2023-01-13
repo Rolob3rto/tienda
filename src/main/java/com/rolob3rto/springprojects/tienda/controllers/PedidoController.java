@@ -1,7 +1,10 @@
-/* package com.rolob3rto.springprojects.tienda.controllers;
+package com.rolob3rto.springprojects.tienda.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,18 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.model.Pedido;
 import com.rolob3rto.springprojects.tienda.services.PedidosServices;
 
 @Controller
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
     @Autowired
@@ -39,7 +38,7 @@ public class PedidoController {
     @GetMapping(value = "/list")
     public ModelAndView list(Model model){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:list/1/codigo/asc");
+        modelAndView.setViewName("redirect:list/1/codigo/desc");
         return modelAndView;
     }
   
@@ -61,40 +60,42 @@ public class PedidoController {
         modelAndView.addObject("pedidos", pedidos);
 
 
-        modelAndView.addObject("numPage", numPage);
-        modelAndView.addObject("totalPages", page.getTotalPages());
-        modelAndView.addObject("totalElements", page.getTotalElements());
+		modelAndView.addObject("numPage", numPage);
+		modelAndView.addObject("totalPages", page.getTotalPages());
+		modelAndView.addObject("totalElements", page.getTotalElements());
 
-        modelAndView.addObject("fieldSort", fieldSort);
-        modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
+		modelAndView.addObject("fieldSort", fieldSort);
+		modelAndView.addObject("directionSort", directionSort.equals("asc") ? "asc" : "desc");
 
         return modelAndView;
     }
 
+    @GetMapping(path = { "/edit/{codigo}" })
+    public ModelAndView edit(
+            @PathVariable(name = "codigo", required = true) int codigo, final Locale locale) {
+
+        Pedido pedido = pedidosService.findPedido(codigo);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("pedido", pedido);
+
+        modelAndView.setViewName("pedidos/edit");
+        return modelAndView;
+    }
+
     @RequestMapping(path = "/save")
-    public ModelAndView save(Pedido pedido) throws IOException{
+    public ModelAndView save(HttpSession session) throws IOException{
 
 
-        pedidosService.insert(pedido);
-
+        pedidosService.insert((Pedido) session.getAttribute("cesta"));
+        
+        session.removeAttribute("cesta");
          ModelAndView modelAndView = new ModelAndView();
 
-         modelAndView.setViewName("redirect:edit?codigo=" + pedido.getCodigo());
+         modelAndView.setViewName("pedidos/list");
 
          return modelAndView;
     }
 
-    @RequestMapping(path = "/delete/{codigo}")
-    public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo){
 
-        pedidosService.delete(codigo);
-        
-
-         ModelAndView modelAndView = new ModelAndView();
-        
-         modelAndView.setViewName("redirect:/pedidos/list");
-
-         return modelAndView;
-    }
-
-} */
+}
