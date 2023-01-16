@@ -90,6 +90,7 @@ public class PedidoController {
         pedidosService.insert((Pedido) session.getAttribute("cesta"));
         
         session.removeAttribute("cesta");
+        
          ModelAndView modelAndView = new ModelAndView();
 
          modelAndView.setViewName("pedidos/list");

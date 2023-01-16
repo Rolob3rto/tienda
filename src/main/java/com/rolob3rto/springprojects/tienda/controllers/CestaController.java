@@ -39,16 +39,12 @@ public class CestaController {
         for (int i = 0; i < listaDetallePedidos.size(); i++) {
             if (listaDetallePedidos.get(i).getProducto().getCodigo() == codigo) {
                 
-                System.out.println("dentro del if i vale: " + i);                
 
                 borrar = i;
                 break;
             }
             
         }
-        
-        System.out.println("codigo vale esto:" + codigo);
-        System.out.println("borrar vale esto:" + borrar);
 
         listaDetallePedidos.remove(borrar);
 

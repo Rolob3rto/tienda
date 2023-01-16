@@ -169,14 +169,15 @@ public class ProductoController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/anadir")
-    public ModelAndView anadir(@RequestParam(name = "codigo", required = true) int codigo, @RequestParam(name = "cantidad", required = true) int cantidad,  HttpSession session) {
+    @RequestMapping(value = "/anadir/{codigo}")
+    public ModelAndView anadir(@PathVariable(name = "codigo", required = true) int codigo,
+            @RequestParam(name = "cantidad", required = true) int cantidad, HttpSession session) {
+
+        Producto producto = productosService.findProducto(codigo);
 
         Pedido cesta = (Pedido) session.getAttribute("cesta");
 
         List<DetallePedido> listaProductos = cesta.getDetallePedidos();
-
-        Producto producto = productosService.findProducto(codigo);
 
         double subtotal = producto.getPrecio() * cantidad;
 
@@ -184,7 +185,6 @@ public class ProductoController {
 
         listaProductos.add(detallePedido);
         cesta.setDetallePedidos(listaProductos);
-        
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/productos/list");

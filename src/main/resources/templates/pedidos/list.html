@@ -10,43 +10,39 @@
 
   <div class="container">
     
-        <h1 th:text="#{pedidos.list.titulo}">Pedidos</h1>
-        <a class="btn btn-primary" th:text="#{pedidos.list.nuevoPedido}" th:href="@{/pedidos/create}" href="new.html"
+        <h1>Pedidos</h1>
+        <!-- <a class="btn btn-primary" th:text="#{pedidos.list.nuevoPedido}" th:href="@{/pedidos/create}" href="new.html"
         role="button">
-        Crear</a>
+        Crear</a> -->
 
     <table class="table table-striped align-middle text-center">
       <thead>
         <tr>
-          <th scope="col" th:text="#{pedidos.list.imagen}">Imagen</th>  
-          <th scope="col" th:text="#{pedidos.list.codigo}">Codigo</th>
-          <th scope="col" th:text="#{pedidos.list.nombre}">Nombre</th>
-          <th scope="col" th:text="#{pedidos.list.descripcion}">Descripcion</th>
-          <th scope="col" th:text="#{pedidos.list.precio}">Precio</th>  
+          <th scope="col">Codigo</th>
+          <th scope="col">Cliente</th>  
+          <th scope="col">Fecha</th>
+          <th scope="col">Total</th>          
           <th scope="col">---</th>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="pedido : ${pedidos}">
-          <td> <img th:src="'data:image/jpeg;base64,' + ${pedido.imageView}" width="325em" src="" alt=""> </td>
+        <tr th:each="pedido : ${pedidos}">          
           <th scope="row" th:text="${pedido.codigo}">#</th>
-          <td th:text="${pedido.nombre}">---</td>
-          <td th:text="${pedido.descripcion}">---</td>
-          <td th:text="${pedido.precio}+€">---</td>  
+          <td th:text="${pedido.cliente.nombre}">---</td>
+          <td th:text="${pedido.fecha}">---</td>
+          <td th:text="${pedido.total}+€">---</td>  
           <td>          
-            <a class="btn btn-primary" th:text="#{pedidos.list.editar}" th:href="@{/pedidos/edit?codigo=}+${pedido.codigo}" href="edit.html"
+            <a class="btn btn-primary" th:href="@{/pedidos/edit/}+${pedido.codigo}" href="edit.html"
               role="button">
-              Editar</a>
-            <a class="btn btn-primary" th:text="#{pedidos.list.borrar}" th:href="@{/pedidos/delete/}+${pedido.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>
-            <a class="btn btn-primary" th:href="@{/pedidos/cantidad?codigo=}+${pedido.codigo}" href="cantidad.html"
-            role="button">
-            Añadir a cesta</a>
+              Ver detalles</a>
+            <!-- <a class="btn btn-primary" th:href="@{/pedidos/delete/}+${pedido.codigo}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a> -->
+            
           </td>
         </tr>    
       </tbody>
     </table>
     <div th:replace="commons/pagination :: pagination" class="container" />
-    <h5 th:text="#{pedidos.list.pie}"></h5>
+    <h5>listado de pedidos</h5>
   </div>
 
   <div th:replace="commons/footer :: footer" class="container" />

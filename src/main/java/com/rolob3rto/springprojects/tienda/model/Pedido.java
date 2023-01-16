@@ -40,7 +40,7 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    private double calcularTotal() {
+    public double getCalcularTotal() {
         
         double total = 0;
         for (DetallePedido detallePedido : detallePedidos) {
@@ -83,7 +83,7 @@ public class Pedido {
     }
 
     public double getTotal() {
-        return calcularTotal();
+        return total;
     }
 
     public void setTotal(double total) {
