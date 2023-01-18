@@ -84,11 +84,11 @@ public class DetallePedidosDAOImpl extends JdbcDaoSupport implements DetallePedi
                     DetallePedido detalle = new DetallePedido();
                     detalle.setCodigo(rs.getInt("codigo"));
                     detalle.setCantidad(rs.getInt("cantidad"));
-                    detalle.setSubTotal(rs.getFloat("total"));
+                    detalle.setSubTotal(rs.getDouble("total"));
                     Producto producto = new Producto();
                     producto.setCodigo(rs.getInt("codigo_producto"));
                     producto.setNombre(rs.getString("nombre_producto"));
-                    producto.setPrecio(rs.getFloat("precio"));
+                    producto.setPrecio(rs.getDouble("precio"));
                     detalle.setProducto(producto);
                     return detalle;
                 }

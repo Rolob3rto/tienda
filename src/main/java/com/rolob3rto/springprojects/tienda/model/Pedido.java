@@ -42,7 +42,7 @@ public class Pedido {
 
     public double getCalcularTotal() {
         
-        double total = 0;
+        total = 0;
         for (DetallePedido detallePedido : detallePedidos) {
             
             total += detallePedido.getSubTotal();

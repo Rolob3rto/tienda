@@ -130,7 +130,7 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
 
                 ps.setString(1, producto.getNombre());
                 ps.setString(2, producto.getDescripcion());
-                ps.setFloat(3, producto.getPrecio());
+                ps.setDouble(3, producto.getPrecio());
                 InputStream is = new ByteArrayInputStream(producto.getImg());
 
                 ps.setBlob(4, is);
@@ -157,7 +157,7 @@ public class ProductosDAOImpl extends JdbcDaoSupport implements ProductosDAO {
         int[] types = {
                 Types.VARCHAR,
                 Types.VARCHAR,
-                Types.FLOAT,
+                Types.DOUBLE,
                 Types.INTEGER
         };
 

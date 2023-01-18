@@ -52,6 +52,13 @@ public class PedidosServicesImpl implements PedidosServices {
     @Override
     public void insert(Pedido pedido) {
         pedidosDAO.insert(pedido);
+
+        List<DetallePedido> listaDetalles = pedido.getDetallePedidos();
+        for (DetallePedido detalle : listaDetalles) {
+            detallePedidoDAO.insert(pedido, detalle);
+            
+        }
+
     }
 
     @Override

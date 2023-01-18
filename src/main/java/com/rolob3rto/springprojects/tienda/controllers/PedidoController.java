@@ -86,14 +86,17 @@ public class PedidoController {
     @RequestMapping(path = "/save")
     public ModelAndView save(HttpSession session) throws IOException{
 
+        Pedido pedido = (Pedido) session.getAttribute("cesta");
 
-        pedidosService.insert((Pedido) session.getAttribute("cesta"));
+        
+
+        pedidosService.insert(pedido);
         
         session.removeAttribute("cesta");
         
          ModelAndView modelAndView = new ModelAndView();
 
-         modelAndView.setViewName("pedidos/list");
+         modelAndView.setViewName("redirect:list");
 
          return modelAndView;
     }

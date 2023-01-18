@@ -6,7 +6,7 @@ public class Producto {
     private int codigo;
     private String nombre;
     private String descripcion;
-    private float precio;
+    private double precio;
     private byte[] img;
 
     public Producto() {
@@ -17,7 +17,7 @@ public class Producto {
         this.codigo = codigo;
     }
 
-    public Producto(int codigo, String nombre, String descripcion, float precio) {
+    public Producto(int codigo, String nombre, String descripcion, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -48,11 +48,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
     
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
     
-    public void setPrecio(float precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
     
