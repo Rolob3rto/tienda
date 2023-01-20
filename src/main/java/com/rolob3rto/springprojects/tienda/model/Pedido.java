@@ -4,12 +4,25 @@ package com.rolob3rto.springprojects.tienda.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+@Entity
 public class Pedido {
     
+    @Id
+    @GeneratedValue
     private int codigo;
 
+    @ManyToOne()    
     private Cliente cliente;
 
+    @Transient
     private List<DetallePedido> detallePedidos;
 
     private Date fecha;
