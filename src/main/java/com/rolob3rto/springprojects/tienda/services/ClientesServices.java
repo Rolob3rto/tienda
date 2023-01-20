@@ -13,7 +13,7 @@ public interface ClientesServices {
 
     public Cliente findCliente(int codigo);
 
-    public void insert(Cliente cliente);
+    public void save(Cliente cliente);
 
     public void update(Cliente cliente);
 

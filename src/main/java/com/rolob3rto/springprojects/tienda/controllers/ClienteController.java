@@ -109,7 +109,7 @@ public class ClienteController {
     @RequestMapping(path = "/save")
     public ModelAndView save(Cliente cliente) throws IOException{
 
-        clientesService.insert(cliente);
+        clientesService.save(cliente);
 
          ModelAndView modelAndView = new ModelAndView();
         
