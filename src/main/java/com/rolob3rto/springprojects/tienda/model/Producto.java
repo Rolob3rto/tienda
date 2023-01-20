@@ -1,12 +1,25 @@
 package com.rolob3rto.springprojects.tienda.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+
 import com.rolob3rto.springprojects.tienda.utils.ImageUtil;
 
+@Entity
 public class Producto {
+    
+    @Id
+    @GeneratedValue
     private int codigo;
     private String nombre;
     private String descripcion;
     private double precio;
+    
+    @Lob
+    @Column(length = 100000)
     private byte[] img;
 
     public Producto() {

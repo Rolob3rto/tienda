@@ -112,7 +112,7 @@ public class ProductoController {
         byte[] file = multipartFile.getBytes();
         producto.setImg(file);
 
-        productosService.insert(producto);
+        productosService.save(producto);
 
         // List<Producto> productos = productosServices.findAll();
 

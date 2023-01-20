@@ -13,7 +13,7 @@ public interface ProductosServices {
 
     public Producto findProducto(int codigo);
 
-    public void insert(Producto producto);
+    public void save(Producto producto);
 
     public void update(Producto producto);
 
