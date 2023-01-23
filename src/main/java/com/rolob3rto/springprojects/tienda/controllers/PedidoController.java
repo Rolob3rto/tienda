@@ -101,5 +101,15 @@ public class PedidoController {
          return modelAndView;
     }
 
+    @RequestMapping(path = "/delete/{codigo}")
+    public ModelAndView delete(@PathVariable(name = "codigo", required = true) int codigo) {
 
+        pedidosService.delete(codigo);
+        
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/pedidos/list");
+
+        return modelAndView;
+    }
 }

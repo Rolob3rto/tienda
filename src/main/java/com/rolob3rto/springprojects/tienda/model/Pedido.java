@@ -4,12 +4,11 @@ package com.rolob3rto.springprojects.tienda.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 @Entity
@@ -93,6 +92,11 @@ public class Pedido {
 
     public void setFecha(Date date) {
         this.fecha = date;
+    }
+
+    @PrePersist
+    private void PrePersistFecha(){
+        this.fecha = new Date();
     }
 
     public double getTotal() {
