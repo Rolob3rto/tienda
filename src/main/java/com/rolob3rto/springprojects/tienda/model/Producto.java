@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-
 import com.rolob3rto.springprojects.tienda.utils.ImageUtil;
 
 @Entity

@@ -1,4 +1,4 @@
-package com.rolob3rto.springprojects.tienda.dao.impl;
+/* package com.rolob3rto.springprojects.tienda.dao.impl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -96,4 +96,4 @@ public class DetallePedidosDAOImpl extends JdbcDaoSupport implements DetallePedi
     
             return detalles;
     }
-}
+} */

@@ -183,6 +183,7 @@ public class ProductoController {
 
         DetallePedido detallePedido = new DetallePedido(producto, cantidad, subtotal);
 
+        detallePedido.setPedido(cesta);
         listaProductos.add(detallePedido);
         cesta.setDetallePedidos(listaProductos);
 

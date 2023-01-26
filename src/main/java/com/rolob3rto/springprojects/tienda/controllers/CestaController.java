@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.DetallePedido;
 import com.rolob3rto.springprojects.tienda.model.Pedido;
-import com.rolob3rto.springprojects.tienda.model.Producto;
 
 @Controller
 @RequestMapping("/cesta")

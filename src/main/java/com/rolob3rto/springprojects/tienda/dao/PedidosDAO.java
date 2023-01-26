@@ -1,7 +1,6 @@
 package com.rolob3rto.springprojects.tienda.dao;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.rolob3rto.springprojects.tienda.model.Pedido;

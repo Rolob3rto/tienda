@@ -1,7 +1,5 @@
 package com.rolob3rto.springprojects.tienda.dao;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

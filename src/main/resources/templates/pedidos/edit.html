@@ -32,7 +32,7 @@
       </thead>
       <tbody>
         <tr th:each="detalleProducto : ${pedido.detallePedidos}">
-          <th scope="row" th:text="${detalleProducto.codigo}">#</th>
+          <th scope="row" th:text="${detalleProducto.producto.codigo}">#</th>
           <td th:text="${detalleProducto.producto.nombre}">---</td>
           <td th:text="${detalleProducto.producto.precio}">---</td>
           <td th:text="${detalleProducto.cantidad}">---</td>

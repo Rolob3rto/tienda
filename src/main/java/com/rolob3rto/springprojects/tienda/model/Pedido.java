@@ -18,7 +18,7 @@ public class Pedido {
     @GeneratedValue
     private int codigo;
 
-    @ManyToOne()    
+    @ManyToOne
     private Cliente cliente;
 
     @Transient
