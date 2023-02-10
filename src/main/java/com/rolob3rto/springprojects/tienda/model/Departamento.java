@@ -38,6 +38,11 @@ public class Departamento {
         this.codigo = codigo;
     }
 
+    public Departamento(int codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+
     /**
      * @return int return the codigo
      */

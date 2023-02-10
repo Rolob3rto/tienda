@@ -12,21 +12,22 @@
             <input th:value="${departamento.nombre}" type="text" name="nombre" class="form-control" id="exampleInput1">
           </div>
         
-          <a class="btn btn-primary" th:href="@{/departamentos/list}" href="#" role="button">Cancelar</a>
-          <button type="submit" class="btn btn-primary">Aceptar</button>
           <table class="table table-striped">            
             <tbody>
               <tr th:each="empleado : ${empleados}">
                 
                   <td>
-                    <input type="checkbox" th:checked="${empleado.check}">
+                    <input name="check" type="checkbox" th:value="${empleado.codigo}" th:checked="${empleado.check}">
                   </td>
                   <td th:text="${empleado.nombre}">---</td>
                   <td th:text="${empleado.apellidos}">---</td>
-              </tr>
-            </tbody>
-          </table> 
-        </form>                
+                </tr>
+              </tbody>
+            </table> 
+            <a class="btn btn-primary" th:href="@{/departamentos/list}" href="#" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>        
+        
       </div>
       
 

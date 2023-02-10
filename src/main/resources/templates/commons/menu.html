@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
   <div th:fragment="menu">
@@ -17,33 +17,33 @@
             <li class="nav-item">
               <a class="nav-link active" th:text="#{menu.home}" aria-current="page" th:href="@{/}" href="index.html">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'PRODUCTOS')">
               <a class="nav-link" th:text="#{menu.productos}" th:href="@{/productos/list}"
                 href="../productos/list.html">Productos</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'CLIENTES')">
               <a class="nav-link" th:text="#{menu.clientes}" th:href="@{/clientes/list}"
                 href="../clientes/list.html">Clientes</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'PEDIDOS')">
               <a class="nav-link" th:href="@{/pedidos/list}"
                 href="../pedidos/list.html">Pedidos</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'VENDEDORES')">
               <a class="nav-link" th:href="@{/vendedores/list}"
                 href="../vendedores/list.html">Vendedores</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'EMPLEADOS')">
               <a class="nav-link" th:href="@{/empleados/list}"
                 href="../empleados/list.html">Empleados</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN', 'DEPARTAMENTOS')">
               <a class="nav-link" th:href="@{/departamentos/list}"
                 href="../departamentos/list.html">Departamentos</a>
             </li>
                      
           </ul>        
-              <a th:href="@{/cesta/list}" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a>
+              <a th:href="@{/cesta/list}" sec:authorize="hasAnyAuthority('ADMIN','CESTA')" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a>
                 
           <div th:unless="${session}"></div>
           
@@ -66,7 +66,7 @@
             <button th:text="#{menu.buscar}" class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <a th:href="@{/login/logout}" th:text="${session.usuario.nombre}" href="#"><i class="bi bi-box-arrow-left"></i>logout</a>
+          <a th:href="@{/logout}" href="#"><i class="bi bi-box-arrow-left"></i>logout</a>
         </div>
       </div>
     </nav>

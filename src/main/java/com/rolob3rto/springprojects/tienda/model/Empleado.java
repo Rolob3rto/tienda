@@ -134,5 +134,12 @@ public class Empleado {
         return true;
     }
 
+    public List<Departamento> getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(List<Departamento> departamentos) {
+        this.departamentos = departamentos;
+    }
 
 }

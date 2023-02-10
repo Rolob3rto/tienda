@@ -7,7 +7,13 @@
         <div class="h-100 p-5 text-bg-dark rounded-3">
             <h1 th:text="${greetings}"></h1>
 
-            <h3 th:text="#{saludar.usuario(${session.usuario.nombre})}">Hello, PlaceHolder</h3>
+            <!-- <h3 th:text="#{saludar.usuario(${session.usuario.nombre})}">Hello, PlaceHolder</h3> -->
+
+            <span sec:authorize="isAuthenticated()">
+                Logged user: <span sec:authentication="name"></span>
+                Roles: <span sec:authentication="principal.authorities"></span>
+                <a th:href="@{/logout}">Logout</a>
+            </span>
         </div>
     </div>
 

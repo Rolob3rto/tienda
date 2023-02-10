@@ -1,10 +1,7 @@
 package com.rolob3rto.springprojects.tienda.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rolob3rto.springprojects.tienda.model.Departamento;
-import com.rolob3rto.springprojects.tienda.model.DetallePedido;
 import com.rolob3rto.springprojects.tienda.model.Empleado;
-import com.rolob3rto.springprojects.tienda.model.Pedido;
-import com.rolob3rto.springprojects.tienda.repository.EmpleadoRepository;
 import com.rolob3rto.springprojects.tienda.services.DepartamentosServices;
 import com.rolob3rto.springprojects.tienda.services.EmpleadosServices;
 
 @Controller
 @RequestMapping("/departamentos")
+@PreAuthorize("hasAnyAuthority('ADMIN','DEPARTAMENTOS')")
 public class DepartamentoController {
 
     @Autowired
@@ -126,8 +122,28 @@ public class DepartamentoController {
     }
 
     @PostMapping(path = "/update")
-    public ModelAndView update(Departamento departamento) throws IOException{
-        
+    public ModelAndView update(Departamento departamento, List<Empleado> listaEmpleados) throws IOException{        
+
+        for (Empleado empleado : listaEmpleados) {
+            List<Departamento> listaDepInicial = empleado.getDepartamentos();
+            if (empleado.isCheck()) {
+
+                if (!listaDepInicial.contains(departamento)) {
+                
+                    listaDepInicial.add(departamento);
+                    
+                }
+            } else {
+
+                if (listaDepInicial.contains(departamento)) {
+                    
+                    listaDepInicial.remove(departamento);
+    
+                }
+            }
+            empleado.setDepartamentos(listaDepInicial);
+        }
+
         departamentosService.update(departamento);
         
          
