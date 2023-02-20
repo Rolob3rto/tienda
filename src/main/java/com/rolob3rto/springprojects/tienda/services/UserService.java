@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
             permisosNombres.add(new SimpleGrantedAuthority(permission.getName()));
         }
         
-        UserDetails user = org.springframework.security.core.userdetails.User.builder()
+        UserDetails user = org.springframework.security.core.userdetails.User.builder()        
             .username(usuario.getNombre())
             .password(usuario.getPassword())     
             .authorities(permisosNombres)

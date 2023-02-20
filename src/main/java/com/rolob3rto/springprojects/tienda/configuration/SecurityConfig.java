@@ -3,6 +3,7 @@ package com.rolob3rto.springprojects.tienda.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,41 +13,20 @@ import com.rolob3rto.springprojects.tienda.services.UserService;
 
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        //return NoOpPasswordEncoder.getInstance();
+        
     }
     
     @Bean
     UserService myUserService(){
-
-        
         
         return new UserService();
     }
-
-    /* @Bean
-    public UserDetailsService user(){
-        
-        UserDetails user = User.builder()
-            .username("user")
-            .password("{noop}1234")
-            //.password("1234")
-            .authorities("USER")
-            .build();
-
-        UserDetails admin = User.builder()
-            .username("admin")
-            .password("{noop}1234")
-            //.password("1234")
-            .authorities("USER","ADMIN")
-            .build();        
-
-        return new InMemoryUserDetailsManager(user, admin);
-    } */
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
