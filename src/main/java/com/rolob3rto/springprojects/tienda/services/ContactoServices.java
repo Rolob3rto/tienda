@@ -10,7 +10,7 @@ public interface ContactoServices {
 
     public Contacto findContacto(int codigo);
 
-    public void save(Contacto contacto);
+    public Contacto save(Contacto contacto);
 
     public void update(Contacto contacto);
 

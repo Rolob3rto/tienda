@@ -26,7 +26,7 @@
         <tr th:each="contacto : ${contactos}">
           <th scope="row" th:text="${contacto.codigo}">#</th>
           <td th:text="${contacto.nombre}">---</td>          
-          <td th:text="${contacto.email}">---</td>
+          <td th:text="${contacto.correo}">---</td>
           <td th:text="${contacto.numero}">---</td>          
           <td>          
             <a class="btn btn-primary" th:text="#{contactos.list.editar}" th:href="@{/contactos/edit?codigo=}+${contacto.codigo}" href="edit.html"

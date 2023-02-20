@@ -32,23 +32,27 @@ public class ContactoServicesImpl implements ContactoServices{
 
     @Override
     public Contacto findContacto(int codigo){
-        Contacto[] arrayContactos = restTemplate.getForObject(urlAgenda + "contactos", Contacto[].class, codigo);        
-        
-        return arrayContactos[0];
+        Contacto contacto = restTemplate.getForObject(urlAgenda + "contactos/" + codigo, Contacto.class);        
+                
+        return contacto;
     }
 
     @Override
-    public void save(Contacto contacto){
+    public Contacto save(Contacto contacto){
+        Contacto contactoAlta = restTemplate.postForObject(urlAgenda + "contactos", contacto, Contacto.class);
+
         
+
+        return contactoAlta;
     }
 
     @Override
     public void update(Contacto contacto){
-        
+        restTemplate.put(urlAgenda + "contactos", contacto, contacto.getCodigo());        
     }
 
     @Override
     public void delete(int codigo){
-        
+        restTemplate.delete(urlAgenda + "contactos/" + codigo, codigo);        
     }
 }

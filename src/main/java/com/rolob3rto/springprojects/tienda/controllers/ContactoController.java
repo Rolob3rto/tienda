@@ -63,12 +63,12 @@ public class ContactoController {
     @RequestMapping(path = "/save")
     public ModelAndView save(Contacto contacto) throws IOException{
 
-        contactosService.save(contacto);
+        Contacto contactoAlta = contactosService.save(contacto);
 
          ModelAndView modelAndView = new ModelAndView();
         
 
-         modelAndView.setViewName("redirect:edit?codigo=" + contacto.getCodigo());
+         modelAndView.setViewName("redirect:edit?codigo=" + contactoAlta.getCodigo());
 
          return modelAndView;
     }
