@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+  <div th:replace="commons/menu :: menu" />
+
+  <div class="container">
+      <div class="row">
+          <form th:action="@{/notas/buscar}" method="get">
+            <div class="mb-3">
+              <label for="exampleInput1" class="form-label">Titulo</label>
+              <input  type="text" class="form-control" name="titulo" id="exampleInput1">
+            </div>        
+            <div class="mb-3">
+              <label for="exampleInputDate1" class="form-label">Fecha</label>
+              <input  type="text" class="form-control" name="fecha" id="exampleInputDate1">            
+            </div>
+            <button type="submit">Buscar</button>
+          </form>
+      </div>  
+      <h1 th:text="#{notas.list.titulo}">Notas</h1>
+        <a class="btn btn-primary" th:text="#{notas.list.nuevoNota}" th:href="@{/notas/create}" href="new.html"
+        role="button">
+        Crear</a>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col" th:text="#{notas.list.id}">Id</th>
+          <th scope="col" th:text="#{notas.list.titulo}">Titulo</th>
+          <th scope="col" th:text="#{notas.list.fecha}">Fecha</th>
+          <th scope="col" th:text="#{notas.list.descripcion}">Descripcion</th>          
+          <th scope="col">---</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="nota : ${notas}">
+          <th scope="row" th:text="${nota.id}">#</th>
+          <td th:text="${nota.titulo}">---</td>          
+          <td th:text="${nota.fecha}">---</td>
+          <td th:text="${nota.descripcion}">---</td>          
+          <td>          
+            <a class="btn btn-primary" th:text="#{notas.list.editar}" th:href="@{/notas/edit?id=}+${nota.id}" href="edit.html"
+              role="button">
+              Editar</a>
+            <a class="btn btn-primary" th:text="#{notas.list.borrar}" th:href="@{/notas/delete/}+${nota.id}" href="#" role="button"><i class="bi bi-trash"></i>Borrar</a>          
+          </td>
+        </tr>
+      </tbody>
+    </table>   
+    <h5 th:text="#{notas.list.pie}"></h5>
+  </div>
+
+  <div th:replace="commons/footer :: footer" class="container" />
+</body>
+
+</html>

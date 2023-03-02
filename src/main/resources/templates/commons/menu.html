@@ -45,6 +45,10 @@
               <a class="nav-link" th:href="@{/contactos/list}"
                 href="../contactos/list.html">Contactos</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/notas/list}"
+                href="../notas/list.html">Notas</a>
+            </li>
                      
           </ul>        
               <a th:href="@{/cesta/list}" sec:authorize="hasAnyAuthority('ADMIN','CESTA')" href="#"><i style="background-color: gray; padding: 0.5em; border-radius: 5px; color: white;" class="bi bi-cart3"></i></a>
