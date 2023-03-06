@@ -52,7 +52,6 @@ public class NotaServicesImpl implements NotaServices{
         Nota notaAlta = restTemplate.postForObject(urlNotas + "notas", nota, Nota.class);
 
         
-
         return notaAlta;
     }
 
